@@ -1,24 +1,22 @@
 import { createRoot } from "react-dom/client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
+import Header from "./Header";
+import Footer from "./Footer";
 import Section from "./Section";
 
 const root = createRoot(document.getElementById("root"));
 
-/* function Section() {
-  return (
-    <section>
-      <h2>Section Name</h2>
-      <p>Lorem ipsum dolor sit amet.</p>
-    </section>
-  );
-} */
+function myFunc(){  return "hello there" }
 
 root.render(
   <div className="container">
-    <h1>Hello React</h1>
-    <p>Paragraph </p>
-    <hr />
-    <Section />
+
+    <Header x={3} y={50}/>
+  
+    <Section y={myFunc} />
+
+    <Footer />
+    
   </div>
 );

@@ -1,34 +1,24 @@
-const user = "Avi";
+import Card from "./Card";
 
-function greet() {
-  const hours = new Date().getHours(); // 0 - 23
-  if (hours < 12) {
-    return "Morning";
-  } else if (hours < 16) {
-    return "Afternoon";
-  } else if (hours < 20) {
-    return "Evening";
-  } else {
-    return "Night";
-  }
-}
+function Section( prop ) {
 
-function sayHi() {
-  console.log("hello there");
-}
-
-function Section() {
   return (
-    <section>
-      <h2>Hello {user}</h2>
-      <p>Good {greet()}</p>
-
-      <button className="btn btn-primary" onClick={sayHi}>
-        Click
-      </button>
-      <hr />
-      <img src="vite.svg" alt="" width={32} height={32} />
-    </section>
+     <section className="my-3">
+      <h2>Section Component</h2>
+      <p>Its a paragrapgh</p>
+      <p> {prop.y() } </p>
+      
+      <div className="row">
+        <div className="col-6">
+          <Card price={82500} title="IPhone 17" />
+        </div>
+        <div className="col-6">
+          <Card price={135000} title="Iphone 17 pro" />
+        </div>
+      </div>
+      
+     </section>
+    
   );
 }
 
