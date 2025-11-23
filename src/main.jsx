@@ -7,16 +7,15 @@ import Section from "./Section";
 
 const root = createRoot(document.getElementById("root"));
 
-function myFunc(){  return "hello there" }
 
 root.render(
   <div className="container">
 
     <Header x={3} y={50}/>
   
-    <Section y={myFunc} />
+    <Section id={23} />
 
-    <Footer />
+    <Footer />    
     
   </div>
 );

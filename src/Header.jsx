@@ -3,9 +3,9 @@ function Header({x,y,z=0}){                 // destructuring
      return (
           <header className="">
                <h1>Header</h1>
-               <p> x: {x}</p>
+               {/* <p> x: {x}</p>
                <p> y: {y} </p>
-               <p> z: {z} </p>
+               <p> z: {z} </p> */}
           </header>
      )
 }
