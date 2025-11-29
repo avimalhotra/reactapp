@@ -11,9 +11,9 @@ const root = createRoot(document.getElementById("root"));
 root.render(
   <div className="container">
 
-    <Header x={3} y={50}/>
+    <Header/>
   
-    <Section id={23} />
+    <Section />
 
     <Footer />    
     
