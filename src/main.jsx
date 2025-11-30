@@ -7,13 +7,12 @@ import Section from "./Section";
 
 const root = createRoot(document.getElementById("root"));
 
-
 root.render(
   <div className="container">
 
     <Header/>
   
-    <Section />
+    <Section admin={false} />
 
     <Footer />    
     
