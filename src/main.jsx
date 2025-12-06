@@ -12,7 +12,7 @@ root.render(
 
     <Header/>
   
-    <Section admin={false} />
+    <Section />
 
     <Footer />    
     

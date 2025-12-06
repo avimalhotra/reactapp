@@ -1,30 +1,63 @@
-import Condition from "./Condition";
-import Day from "./Day";
+import { useState } from "react";
 
-function Section( {admin} ) {
-  
-    const hour=new Date().getHours();
-    
-    const x=2, y=3, z=4;
+function Section() {
+
+  const [count,setCount]=useState(0);
+  const [x,setX]=useState(10);
+
+  const [name,setName]=useState("");
+  const [age,setAge]=useState(0);
+
+
+  const [user,setUser]=useState({name:"lorem", age:10});
+  /* multiple handler */
+  // function changeName(name){setUser({...user,name})}
+  // function changeAge(age){setUser({...user,age})}
+  /* single handler */
+  function changeUser(e){
+    const {name,value}=e.target;
+    setUser(prev=>({...prev, [name]:value }))
+  }
+
+  function handleClick(){
+      // setX(x+1);
+      // setX(x+2);
+      setX(x=>x+1);
+      setX(x=>x+2);
+    }
+
 
   return (
      <section className="my-3">
       <h2>Section Component</h2>
-      <p>Hour: {hour} </p>
-      
-      <p>Good <Condition hr={hour} /></p>
+      {/* <button className="btn btn-primary" onClick={()=>setCount(count+1)}>2</button> */}
+
+      <button className="btn btn-primary" onClick={()=>setCount(count=>count-1)}>Decrement</button>
+      <span className="mx-3">{count}</span>
+      <button className="btn btn-primary" onClick={()=>setCount(count=>count+1)}>Increment</button>
+      {/* <button className="btn btn-primary" onClick={()=>setCount(count=>count+count)}>Double</button> */}
 
       <hr />
 
-      <h2> { (admin && hour==13) ? "Hello Admin" : "Hello User" } </h2> 
-
-      <hr />
-      
-      <Day />
+      <button className="btn btn-primary" onClick={handleClick}>Change</button> <span>{x}</span>
 
       <hr />
 
-      <p>Triangle with sides {x}, {y}, {z} is <b> { ( x+y>z && x+z>y && y+z>x ) ? "valid" : "invalid" } </b></p>
+      <label>Name: <input type="text" value={name} onInput={e=>setName(e.target.value)} /></label>
+      <label>Age: <input type="number" value={age} onInput={e=>setAge(e.target.value)}/></label>
+      <p>Name: {name}, Age: {age} </p>
+
+      <hr />
+
+      {/* <label>Name: <input type="text" value={user.name} onInput={e=>changeName(e.target.value)} /></label>
+      <label>Age: <input type="number" value={user.age} onInput={e=>changeAge(e.target.value)} /></label>
+      <p>Name: {user.name}, Age: {user.age} </p> */}
+
+      <hr />
+
+       <label>Name: <input type="text" name="name" value={user.name} onChange={changeUser} /></label>
+      <label>Age: <input type="number" name="age" value={user.age} onChange={changeUser} /></label>
+      <p>Name: {user.name}, Age: {user.age} </p>
 
   
      </section>
