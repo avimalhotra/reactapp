@@ -1,69 +1,69 @@
-import { use, useState } from "react";
+import { useState } from "react";
 
 function Section() {
 
-  // const [user,setUser]=useState({name:"", email:'', age:0, terms:false});
-  const [user,setUser]=useState({name:"", email:'', age:0});
+  function sayHi(user){ console.log(`hi ${user}`)}
 
-  const [cars,setCars]=useState([]);
+  const [name,setName]=useState("");
+  const [age,setAge]=useState(0);
+  const [check,setCheck]=useState(false);
+  const [gender,setGender]=useState("");
+  const [city,setCity]=useState("");
 
+  // function changeName(e){ setName(e.target.value) }
+  // function changeAge(e){ setAge(e.target.value) }
+
+  function sendForm(e){
+    e.preventDefault();
+    console.log( e.target.name.value, e.target.age.value, e.target.terms.checked, e.target.gender.value, e.target.city.value  ); 
+  }
+
+  // function showVal(e){ console.log(e.target.value)}
  
-  function changeUser(e){
-
-      const key= e.target.name;
-      const value= e.target.value;
-      // const check= e.target.checked;
-      
-    setUser({...user, [key]:value});
-
-    // if(e.target.name=="terms"){
-    //   setUser({...user, [key]:check});
-    // }
-    // else{
-    //   setUser({...user, [key]:value});
-    // }
-
-  }
-
-  function updateCars(e){
-    e.preventDefault();    
-    setCars([...cars,e.target.query.value ]);
-  }
-
-  function deleteCar(e){
-    setCars(cars.filter(i=>i!=e.target.title));
-  }
-
-
   return (
      <section className="my-3">
       <h2>Section Component</h2>
 
+        {/* <input type="range" min={0} max={100} onChange={showVal} /> */}
 
-      <label>Name: <input type="text" name="name" value={user.name} onChange={changeUser} /></label>
-      <label>Email: <input type="email" name="email" value={user.email} onChange={changeUser} /></label>
-      <label>Age: <input type="number" name="age" value={user.age} onChange={changeUser} /></label>
-      <p>Name: {user.name}</p>
-      <p> Email: {user.email}</p>
-      <p> Age: {user.age}</p>
-      {/* <p> Terms: {user.terms}  </p> */}
+      {/* <button className="btn btn-primary" onClick={sayHi}>Button</button> */}
+      <button className="btn btn-primary" onClick={()=>sayHi('avi')}>Button</button>
 
-    <hr />
+      <hr />
 
-    <h2>To Do List</h2>
-    <form className="row align-items-center" onSubmit={updateCars}>
-      <div className="col-auto"><label htmlFor="car" className="form-label">Car:</label></div>
-      <div className="col-auto"><input type="text" id="car" name="query" required className="form-control" /></div>
-      <div className="col-auto"><button className="btn btn-primary">Add</button></div>
+    <form className="row align-items-center" onSubmit={sendForm}>
+      <div className="col-auto"><label htmlFor="name" className="form-label">Name:</label></div>
+      {/* <div className="col-auto"><input type="text" name="name" id="name" value={name} onChange={changeName} required className="form-control" /></div> */}
+      <div className="col-auto"><input type="text" name="name" id="name" value={name} onChange={(e)=>setName(e.target.value)} required className="form-control" /></div>
+      <div className="col-auto"><label htmlFor="age" className="form-label">Age:</label></div>
+      {/* <div className="col-auto"><input type="number"id="age" name="age" onChange={changeAge}  required className="form-control" /></div> */}
+      <div className="col-auto"><input type="number"id="age" name="age" onChange={(e)=>setAge(e.target.value)}  required className="form-control" /></div>
+      <div className="col-auto"> <label><input name="terms" checked={check} onChange={e=>setCheck(e.target.checked)} type="checkbox" /> : Terms</label> </div>
+      <div className="col-auto"> 
+        <label><input type="radio" name="gender" value="Female" checked={gender==="Female"} onChange={e=>setGender(e.target.value)} /> : Female</label>
+        <label><input type="radio" name="gender" value="Male" checked={gender==="Male"} onChange={e=>setGender(e.target.value)} /> : Male</label>
+        </div>
+
+      <div className="col-auto"><label htmlFor="city" className="form-label">City:</label></div>
+      <div className="col-auto">
+        <select id="city" className="form-select" name="city" onChange={e=>setCity(e.target.value)}>
+          <option disabled selected value="" >--Choose City--</option>
+          <option>New Delhi</option>
+          <option>Chennai</option>
+          </select>
+        </div>
+
+
+      <div className="col-auto"><button className="btn btn-primary">Send</button></div>
     </form>
 
-    <ol className="my-3">
-      { cars.map((elem,ind)=>(
-        <li className="my-3" key={ind}>{elem} <button title={elem} onClick={deleteCar} className="btn btn-danger btn-sm float-end">delete</button> </li>
-      )) }
-    </ol>
-    <hr />
-   
+    <p>Name: {name}</p>
+    <p>Age: {age}</p>
+    {/* <p>Checked: {check.toString()} </p> */}
+    <p>Checked: { (check) ? "Agree" : "Not Agree" } </p>
+    <p>Gender: {gender}</p>
+    <p>City: {city}</p>
+  
      </section>
     
   );
