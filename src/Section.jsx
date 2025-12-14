@@ -1,68 +1,69 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Section() {
 
-  function sayHi(user){ console.log(`hi ${user}`)}
+  const [count, setCount]=useState(0);
+  const [second, setSecond]=useState(0);
+  // const [count2, setCount2]=useState(0);
 
-  const [name,setName]=useState("");
-  const [age,setAge]=useState(0);
-  const [check,setCheck]=useState(false);
-  const [gender,setGender]=useState("");
-  const [city,setCity]=useState("");
+  function changeCount(){ 
+    setCount(count=>count+1);
+    // if(count%5==0 && count!=0){ setCount2(count2=>count2+1) }
+   }
 
-  // function changeName(e){ setName(e.target.value) }
-  // function changeAge(e){ setAge(e.target.value) }
+  // useEffect(()=>{
+  //   console.log("use effect", count, count2);
+  //   // document.title=`Clicked ${count} times`;
+  // },[count2]);
 
-  function sendForm(e){
-    e.preventDefault();
-    console.log( e.target.name.value, e.target.age.value, e.target.terms.checked, e.target.gender.value, e.target.city.value  ); 
+
+  // useEffect(()=>{
+
+  //     const intid=setInterval(()=>{
+  //         setSecond(second=>second+1);
+  //     },1000);      
+
+  //     return ()=>{ clearInterval(intid) }
+
+  // },[]);
+
+
+  async function fetchApi(){
+    const url="https://jsonplaceholder.typicode.com/users";
+
+    try{
+      const res=await fetch(url);
+      const data=await res.json();
+      console.table( data );
+    }
+    catch(err){
+      console.warn(err);
+    }
+    
   }
 
-  // function showVal(e){ console.log(e.target.value)}
- 
+
+  useEffect(()=>{
+
+    // fetch("https://jsonplaceholder.typicode.com/users").then(i=>i.json()).then(i=>console.log(i)).catch(e=>console.warn(e));
+
+    // fetchApi();
+
+   },[]);
+
+
   return (
      <section className="my-3">
       <h2>Section Component</h2>
-
-        {/* <input type="range" min={0} max={100} onChange={showVal} /> */}
-
-      {/* <button className="btn btn-primary" onClick={sayHi}>Button</button> */}
-      <button className="btn btn-primary" onClick={()=>sayHi('avi')}>Button</button>
+      <button className="btn btn-primary" onClick={changeCount}>Change</button> 
+      <p>Count 1: <output>{count}</output></p>
+      {/* <p>Count 2: <output>{count2}</output></p> */}
 
       <hr />
 
-    <form className="row align-items-center" onSubmit={sendForm}>
-      <div className="col-auto"><label htmlFor="name" className="form-label">Name:</label></div>
-      {/* <div className="col-auto"><input type="text" name="name" id="name" value={name} onChange={changeName} required className="form-control" /></div> */}
-      <div className="col-auto"><input type="text" name="name" id="name" value={name} onChange={(e)=>setName(e.target.value)} required className="form-control" /></div>
-      <div className="col-auto"><label htmlFor="age" className="form-label">Age:</label></div>
-      {/* <div className="col-auto"><input type="number"id="age" name="age" onChange={changeAge}  required className="form-control" /></div> */}
-      <div className="col-auto"><input type="number"id="age" name="age" onChange={(e)=>setAge(e.target.value)}  required className="form-control" /></div>
-      <div className="col-auto"> <label><input name="terms" checked={check} onChange={e=>setCheck(e.target.checked)} type="checkbox" /> : Terms</label> </div>
-      <div className="col-auto"> 
-        <label><input type="radio" name="gender" value="Female" checked={gender==="Female"} onChange={e=>setGender(e.target.value)} /> : Female</label>
-        <label><input type="radio" name="gender" value="Male" checked={gender==="Male"} onChange={e=>setGender(e.target.value)} /> : Male</label>
-        </div>
+      {/* <p>{second}</p> */}
 
-      <div className="col-auto"><label htmlFor="city" className="form-label">City:</label></div>
-      <div className="col-auto">
-        <select id="city" className="form-select" name="city" onChange={e=>setCity(e.target.value)}>
-          <option disabled selected value="" >--Choose City--</option>
-          <option>New Delhi</option>
-          <option>Chennai</option>
-          </select>
-        </div>
-
-
-      <div className="col-auto"><button className="btn btn-primary">Send</button></div>
-    </form>
-
-    <p>Name: {name}</p>
-    <p>Age: {age}</p>
-    {/* <p>Checked: {check.toString()} </p> */}
-    <p>Checked: { (check) ? "Agree" : "Not Agree" } </p>
-    <p>Gender: {gender}</p>
-    <p>City: {city}</p>
+      
      </section>
     
   );
