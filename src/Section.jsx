@@ -63,7 +63,6 @@ function Section() {
     <p>Checked: { (check) ? "Agree" : "Not Agree" } </p>
     <p>Gender: {gender}</p>
     <p>City: {city}</p>
-  
      </section>
     
   );
