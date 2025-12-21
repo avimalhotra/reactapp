@@ -1,1 +1,11 @@
 
+.img-resp{ max-width: 100%; }
+.card h3{ height: 70px; overflow: hidden; text-overflow: ellipsis;}
+.card p.desc{ height: 100px; overflow: hidden; text-overflow: ellipsis;}
+
+.ratings i{ color: #ccc; }
+.ratings.r-1 :is(:nth-child(1)){ color: red; }
+.ratings.r-2 :is(:nth-child(1),:nth-child(2)){ color: red; }
+.ratings.r-3 :is(:nth-child(1),:nth-child(2),:nth-child(3)){ color: red;}
+.ratings.r-4 :is(:nth-child(1),:nth-child(2),:nth-child(3),:nth-child(4)){ color: red;}
+.ratings.r-5 :is(:nth-child(1),:nth-child(2),:nth-child(3),:nth-child(4),:nth-child(5)){ color: red;}

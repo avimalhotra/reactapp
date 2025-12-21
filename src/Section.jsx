@@ -8,9 +8,12 @@ function Section() {
 
   async function fetchApi(){
 
-    const url="https://jsonplaceholder.typicode.com/users";
-    //  https://fakestoreapi.com/products
-    // https://jsonplaceholder.typicode.com/photos
+    // const url="https://jsonplaceholder.typicode.com/users";
+    // https://fakestoreapi.com/products
+    // const url='https://jsonplaceholder.typicode.com/photos';
+    // const url='https://jsonplaceholder.typicode.com/albums/1/photos';
+    const url='https://fakestoreapi.com/products';
+    // https://www.weatherapi.com/weather
 
     try{
       setLoading(true);
@@ -28,70 +31,34 @@ function Section() {
 
   useEffect(()=>{ fetchApi() },[]);
 
-  function handleSort(id="id"){
-      users.sort((x,y)=>{
-          if(x[id]<y[id]){ return -1 }
-          else{ return 1}
-      });
-      setUsers([...users]);  
-  }
-
 
   if(loading) return <div>Loading... <img src="loader.svg" alt="" /> </div>
   if(error) return <div>Error Found</div>
 
   return (
      <section className="my-3">
-      <h2>API </h2>
-      
-     <table className="table table-bordered">
-      <thead>
-        <tr>
-          <th>
-            <div style={{width:"8rem"}} className="d-flex align-items-center justify-content-between">
-            <span>Id</span>
-            <button onClick={()=>handleSort('id')} className="btn btn-sm btn-outline-primary float-end">↕</button>
-          </div>
-          </th>
-        <th>
-          <div className="d-flex align-items-center justify-content-between">
-            <span>Name</span>
-            <button onClick={()=>handleSort('name')} className="btn btn-sm btn-outline-primary float-end">↕</button>
-          </div>
-          </th>
-          <th>
-            <div className="d-flex align-items-center justify-content-between">
-            <span>Userame</span>
-            <button onClick={()=>handleSort('username')} className="btn btn-sm btn-outline-primary float-end">↕</button>
-          </div>
-          </th>
-          <th>Phone</th>
-          <th>Email</th>
-          <th>Website</th>
-          <th>Company</th>
-          <th>City</th></tr>
-      </thead>
-      <tbody>
+      <h2>Fake Store API </h2>
+  
+      <div className="row g-2">
       {
-      users.map((x)=>(
-        <tr key={x.id}>
-          <td>{x.id}</td>
-          <td>{x.name} </td>
-          <td>{x.username}</td>
-          <td>{x.phone}</td>
-          <td>{x.email}</td>
-          <td><a href={"https://"+x.website} target="_blank">{x.website}</a></td>
-          <td>{x.company.name}</td>
-          <td>{x.address.city}</td>
-          </tr>
-      ))
+        users.map(elem=>(
+          <div key={elem.id} className="col-lg-3 col-sm-6">
+            <div className="card h-100">
+              <img src={elem.image} alt="" className="img-resp" width={316} height={316} />
+              <div className="card-body">
+                <h3 title={elem.title} className="card-title">{elem.title}</h3>
+                <h4 className="card-text"> {elem.category}</h4>
+                <p className="card-text">Price: {elem.price}</p>
+                <p className="card-text desc">{elem.description}</p>
+                <p>Rating: {elem.rating.rate} <span className={ "ratings r-"+ Math.round(elem.rating.rate)}> <i>★</i> <i>★</i> <i>★</i> <i>★</i> <i>★</i> </span> </p>
+                <p>Rating Count:  {elem.rating.count} </p>
+              </div>
+            </div>
+          </div>
+        ))
       }
-      </tbody>
-      </table>
-
-      
+      </div>
      </section>
-    
   );
 }
 
