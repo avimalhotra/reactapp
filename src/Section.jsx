@@ -1,63 +1,50 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import Sec1 from "./Sec1";
+import Sec2 from "./Sec2";
 
 function Section() {
 
-  const [users,setUsers]=useState([]);   
-  const [loading,setLoading]=useState(true);
-  const [error,setError]=useState(null);
+  const [count,setCount]=useState(0);
+  const ref=useRef(0);  
+  // ref.current=ref.current+1;
+  // const inputRef=useRef(0);  
 
-  async function fetchApi(){
+  function changeRef(){setCount(count=>count+1);}
 
-    // const url="https://jsonplaceholder.typicode.com/users";
-    // https://fakestoreapi.com/products
-    // const url='https://jsonplaceholder.typicode.com/photos';
-    // const url='https://jsonplaceholder.typicode.com/albums/1/photos';
-    const url='https://fakestoreapi.com/products';
-    // https://www.weatherapi.com/weather
+  // function changeFocus(){inputRef.current.focus();}
 
-    try{
-      setLoading(true);
-      const res=await fetch(url);
-      const data=await res.json();
-      setUsers([...data]);  
-    }
-    catch(err){
-      setError(err);
-    }
-    finally{
-      setLoading(false);
-    }
-  }
-
-  useEffect(()=>{ fetchApi() },[]);
+const items = [{ price: 10 }, { price: 20 }, { price: 30 }];
+// const total = items.reduce((sum, item) => sum + item.price, 0);
+// console.log(total); // 60
 
 
-  if(loading) return <div>Loading... <img src="loader.svg" alt="" /> </div>
-  if(error) return <div>Error Found</div>
+
+  useEffect(()=>{
+    ref.current=count;
+  },[count]);
 
   return (
      <section className="my-3">
-      <h2>Fake Store API </h2>
-  
-      <div className="row g-2">
-      {
-        users.map(elem=>(
-          <div key={elem.id} className="col-lg-3 col-sm-6">
-            <div className="card h-100">
-              <img src={elem.image} alt="" className="img-resp" width={316} height={316} />
-              <div className="card-body">
-                <h3 title={elem.title} className="card-title">{elem.title}</h3>
-                <h4 className="card-text"> {elem.category}</h4>
-                <p className="card-text">Price: {elem.price}</p>
-                <p className="card-text desc">{elem.description}</p>
-                <p>Rating: {elem.rating.rate} <span className={ "ratings r-"+ Math.round(elem.rating.rate)}> <i>★</i> <i>★</i> <i>★</i> <i>★</i> <i>★</i> </span> </p>
-                <p>Rating Count:  {elem.rating.count} </p>
-              </div>
-            </div>
-          </div>
-        ))
-      }
-      </div>
+      <h2>React Component </h2>
+      <p>Ref: {ref.current}, Count: {count}</p>
+      <button className="btn btn-primary" onClick={changeRef}>Click</button>
+      <hr />
+
+      {/* <input type="text" ref={inputRef} />
+      <button className="btn btn-primary" onClick={changeFocus}>Click</button> */}
+
+      <hr />
+
+      <button className="btn btn-primary" onClick={()=>setCount(count+1)}>Change</button>
+
+      <span>Prev: {ref.current}</span>
+      <span>Current: {count}</span>
+
+      <hr />
+
+      <Sec1 counter={count} setCounter={setCount} />
+      <Sec2 counter={count} setCounter={setCount}/>
+
      </section>
   );
 }
