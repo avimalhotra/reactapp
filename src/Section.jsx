@@ -1,49 +1,53 @@
-import { useState, useEffect, useRef } from "react";
-import Sec1 from "./Sec1";
-import Sec2 from "./Sec2";
+import { createContext, useContext} from "react";
+ 
+// 1. Create Context
+const CreateContext=createContext();
+ 
+// 2. provide Context
+function AppProvider(){
+  const car={name:"swift", power:82, price:900000};
+
+  return (
+    <CreateContext.Provider value={car}>
+      <CarDetails />
+    </CreateContext.Provider>
+  );
+
+}
+
+// 3. consume Context
+
+function CarDetails(){
+  const car=useContext(CreateContext);
+  return (
+    <section className="card">
+      <div className="card-body">
+        <h3>Car Details</h3>
+        <p>Name: {car.name}</p>
+        <p>Power: {car.power}</p>
+        <p>Price: {car.price}</p>
+      </div>
+    </section>
+  )
+}
+
 
 function Section() {
 
-  const [count,setCount]=useState(0);
-  const ref=useRef(0);  
-  // ref.current=ref.current+1;
-  // const inputRef=useRef(0);  
-
-  function changeRef(){setCount(count=>count+1);}
-
-  // function changeFocus(){inputRef.current.focus();}
-
 const items = [{ price: 10 }, { price: 20 }, { price: 30 }];
-// const total = items.reduce((sum, item) => sum + item.price, 0);
-// console.log(total); // 60
+const totalp=items.reduce((a,b)=>a+b.price,0);
+const avgp=items.reduce((a,b)=>a+b.price,0)/items.length;
 
-
-
-  useEffect(()=>{
-    ref.current=count;
-  },[count]);
 
   return (
      <section className="my-3">
       <h2>React Component </h2>
-      <p>Ref: {ref.current}, Count: {count}</p>
-      <button className="btn btn-primary" onClick={changeRef}>Click</button>
-      <hr />
 
-      {/* <input type="text" ref={inputRef} />
-      <button className="btn btn-primary" onClick={changeFocus}>Click</button> */}
+      <p>Total: {totalp}, avg: {avgp}</p>
 
       <hr />
 
-      <button className="btn btn-primary" onClick={()=>setCount(count+1)}>Change</button>
-
-      <span>Prev: {ref.current}</span>
-      <span>Current: {count}</span>
-
-      <hr />
-
-      <Sec1 counter={count} setCounter={setCount} />
-      <Sec2 counter={count} setCounter={setCount}/>
+      <AppProvider />
 
      </section>
   );
