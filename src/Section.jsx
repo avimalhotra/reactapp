@@ -1,55 +1,30 @@
-import { createContext, useContext} from "react";
- 
-// 1. Create Context
-const CreateContext=createContext();
- 
-// 2. provide Context
-function AppProvider(){
-  const car={name:"swift", power:82, price:900000};
-
-  return (
-    <CreateContext.Provider value={car}>
-      <CarDetails />
-    </CreateContext.Provider>
-  );
-
-}
-
-// 3. consume Context
-
-function CarDetails(){
-  const car=useContext(CreateContext);
-  return (
-    <section className="card">
-      <div className="card-body">
-        <h3>Car Details</h3>
-        <p>Name: {car.name}</p>
-        <p>Power: {car.power}</p>
-        <p>Price: {car.price}</p>
-      </div>
-    </section>
-  )
-}
+import Child from "./Child";
+import { useState } from "react";
+import { useCallback } from "react";
 
 
-function Section() {
+function Section(){
 
-const items = [{ price: 10 }, { price: 20 }, { price: 30 }];
-const totalp=items.reduce((a,b)=>a+b.price,0);
-const avgp=items.reduce((a,b)=>a+b.price,0)/items.length;
+  const [count,setCount]=useState(0);
+  const x=10;
 
+  // function handleClick(){setCount(count+1)}
+
+  const handleClick=useCallback(()=>{
+     setCount(count+1);
+  },[count]);                         // dependency
 
   return (
      <section className="my-3">
       <h2>React Component </h2>
+      <button className="btn btn-primary" onClick={handleClick}>Click</button>  Count : <output>{count}</output>
+      
+      <br />
 
-      <p>Total: {totalp}, avg: {avgp}</p>
-
-      <hr />
-
-      <AppProvider />
+     {/* <Child onClick={handleClick} /> */}
 
      </section>
+
   );
 }
 
