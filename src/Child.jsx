@@ -1,9 +1,14 @@
-export default function Child(prop){
-     // console.log(prop);
+import { memo } from "react";
+
+const Child=memo(function({pi}){
+     console.log("re rendered");
      return (
           <>
                <h3>Child Component</h3>
-               <button className="btn btn-primary" onClick={prop.onClick}>Click</button>
+               <p>PI: {pi}</p>
+               {/* <p>Counter: {x}</p> */}
           </>
      )
-}
+});
+
+export default Child;
