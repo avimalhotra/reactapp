@@ -1,14 +1,14 @@
-import { memo } from "react";
 
-const Child=memo(function({pi}){
-     console.log("re rendered");
+const Child=()=>{
+     // const  counter=0;
      return (
           <>
                <h3>Child Component</h3>
-               <p>PI: {pi}</p>
-               {/* <p>Counter: {x}</p> */}
+               <p>Paragraph in child component</p>
+               <p>Counter: {counter}</p>
+               
           </>
      )
-});
+};
 
 export default Child;

@@ -15,7 +15,7 @@ root.render(
   
     <Section />
 
-    <LoginPopup />
+    {/* <LoginPopup /> */}
 
     <Footer />    
     
