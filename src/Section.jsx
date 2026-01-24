@@ -1,6 +1,8 @@
+import React, {Suspense} from "react";
 import { useState } from "react";
-import Child from "./Child";
-import ErrorBoundary from "./ErrorBoundary";
+// import Child from "./Child";
+
+const Child=React.lazy(()=>import('./Child'));
 
 function Section(){
 
@@ -8,10 +10,12 @@ function Section(){
      <section className="my-3">
       <h2>Section Component </h2>
 
-      <ErrorBoundary>
-          <Child />
-      </ErrorBoundary>
-      
+      {/* <Child></Child> */}
+
+      <Suspense fallback={<p>Loading Child Component</p>}>
+        <Child />
+      </Suspense>
+ 
      </section>
 
   );

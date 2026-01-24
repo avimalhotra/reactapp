@@ -4,20 +4,24 @@ import "./style.css";
 import Header from "./Header";
 import Footer from "./Footer";
 import Section from "./Section";
-import LoginPopup from "./LoginPupup";
+import Nav from "./Nav";
+import { BrowserRouter } from "react-router-dom";
+import Routes from "./Routes";
 
 const root = createRoot(document.getElementById("root"));
 
 root.render(
   <div className="container">
 
-    <Header/>
-  
-    <Section />
-
-    {/* <LoginPopup /> */}
-
-    <Footer />    
+    <BrowserRouter>
+      {/* <Section /> */}
+      <Header/>
+      <Nav />
+      <main>
+        <Routes />
+      </main>
+      <Footer />  
+    </BrowserRouter>  
     
   </div>
 );
