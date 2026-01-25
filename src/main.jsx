@@ -12,9 +12,7 @@ const root = createRoot(document.getElementById("root"));
 
 root.render(
   <div className="container">
-
     <BrowserRouter>
-      {/* <Section /> */}
       <Header/>
       <Nav />
       <main>
